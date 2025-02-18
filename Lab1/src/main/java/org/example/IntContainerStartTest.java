@@ -1,6 +1,6 @@
 package org.example;
 
-public class IntContainerTest {
+public class IntContainerStartTest {
     public static void main(String[] args) {
         IntContainer container = new IntContainer();
 
