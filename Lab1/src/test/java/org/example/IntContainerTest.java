@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Начальные unit-тесты для класса IntContainer
+ * Unit-тесты для класса IntContainer
  */
-public class IntContainerStartTest {
+public class IntContainerTest {
 
     @Test
     public void testAddAndGet() {
@@ -25,10 +25,17 @@ public class IntContainerStartTest {
         container.add(3);
         int removed = container.remove(1);
         assertEquals(2, removed);
-        // Проверяем сдвиг элементов после удаления
+        assertEquals(2, container.size());
         assertEquals(1, container.get(0));
         assertEquals(3, container.get(1));
-        // Проверяем что размер уменьшился
-        assertEquals(2, container.size());
+    }
+
+    @Test
+    public void testIndexOutOfBounds() {
+        IntContainer container = new IntContainer();
+        container.add(100);
+        assertThrows(IndexOutOfBoundsException.class, () -> container.get(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> container.get(1));
+        assertThrows(IndexOutOfBoundsException.class, () -> container.remove(1));
     }
 }
