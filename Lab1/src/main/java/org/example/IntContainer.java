@@ -1,14 +1,32 @@
 package org.example;
 
-// Начальная версия класса IntContainer с полями и базовым методом add
-// TODO: добавить методы get и remove, а также проверку индекса
+/**
+ * Начальная версия контейнера для хранения целых чисел
+ * TODO: Реализовать методы get и remove, добавить проверку индекса
+ */
 public class IntContainer {
-    // TODO: возможно, увеличить размер начального массива
     private int[] data = new int[10];
     private int size = 0;
 
-    // Метод для добавления элемента (без проверки вместимости)
     public void add(int value) {
         data[size++] = value;
+    }
+
+    // Скелет метода get
+    public int get(int index) {
+        // TODO: добавить проверку индекса
+        return data[index];
+    }
+
+    // Скелет метода remove
+    public int remove(int index) {
+        // TODO: добавить проверку индекса и сдвиг элементов
+        int removed = data[index];
+        // Простой сдвиг элементов влево
+        for (int i = index; i < size - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        size--;
+        return removed;
     }
 }
