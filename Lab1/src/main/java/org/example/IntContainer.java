@@ -2,14 +2,13 @@ package org.example;
 
 /**
  * Контейнер для хранения целых чисел
- * TODO: протестировать расширение массива
  */
 public class IntContainer {
     private int[] data = new int[10];
     private int size = 0;
 
     public void add(int value) {
-        ensureCapacity();  // UPD: проверяем вместимость массива
+        ensureCapacity();
         data[size++] = value;
     }
 
@@ -28,16 +27,24 @@ public class IntContainer {
         return removed;
     }
 
+    /**
+     * Возвращает текущее количество элементов в контейнере
+     *
+     * @return размер контейнера
+     */
+    public int size() {
+        return size;
+    }
+
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Индекс " + index + " вне диапазона (0 - " + (size - 1) + ")");
         }
     }
 
-    // Метод для расширения массива при достижении его емкости
     private void ensureCapacity() {
         if (size >= data.length) {
-            int newCapacity = data.length * 2; // UPD: удваиваем размер массива
+            int newCapacity = data.length * 2;
             int[] newData = new int[newCapacity];
             System.arraycopy(data, 0, newData, 0, data.length);
             data = newData;
