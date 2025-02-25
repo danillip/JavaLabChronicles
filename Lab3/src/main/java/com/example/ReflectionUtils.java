@@ -5,6 +5,7 @@ package com.example;
  * Здесь обходим приватность методов через Reflection,
  * но для простоты и наглядности делают публичными (но не я :D )
  * если нужно тестировать напрямую.
+ * ==============МОЖНО ОСТАВИТЬ ПУСТЫМ=========================
  */
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
