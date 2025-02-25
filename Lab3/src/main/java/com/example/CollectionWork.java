@@ -6,36 +6,47 @@ import java.util.List;
 
 /**
  * Основной класс для сравнения производительности ArrayList и LinkedList
- *
- * TODO:
- *  1. Реализовать методы для тестирования add, remove (delete), get
- *  2. Засечь время (System.nanoTime() или System.currentTimeMillis())
- *  3. Вывести результаты в таблицу
- *
- * UPD: Добавлены поля ITERATIONS и заготовка для тестовых методов
  */
 public class CollectionWork {
-
-    /**
-     * Количество операций, которое будем выполнять
-     * TODO: Позже сделать ввод этого параметра из аргументов или из настроек
-     */
-    private static final int ITERATIONS = 1000; // если вопрос про final то это чтобы неизменным он был после инициализации
+    private static final int ITERATIONS = 1488;
 
     public static void main(String[] args) {
-        // проверка запуска
-        System.out.println("Коллекции — тест производительности.");
+        System.out.println("Тест производительности: add");
 
-        // TODO: методы сравнения некст
+        // Тесты
+        testAddPerformance(ITERATIONS);
     }
 
     /**
-     * TODO: Метод для тестирования скорости добавления
+     * Тестируем скорость добавления (add) для ArrayList и LinkedList
+     * @param iterations количество элементов, которые добавляем
      */
     private static void testAddPerformance(int iterations) {
-        // UPD: Пока только заготовка
+        // ArrayList
         List<Integer> arrayList = new ArrayList<>();
+        long startArrayAdd = System.nanoTime();
+        for (int i = 0; i < iterations; i++) {
+            arrayList.add(i);
+        }
+        long endArrayAdd = System.nanoTime();
+        long durationArrayAdd = endArrayAdd - startArrayAdd;
+
+        // LinkedList
         List<Integer> linkedList = new LinkedList<>();
-        // позже
+        long startLinkedAdd = System.nanoTime();
+        for (int i = 0; i < iterations; i++) {
+            linkedList.add(i);
+        }
+        long endLinkedAdd = System.nanoTime();
+        long durationLinkedAdd = endLinkedAdd - startLinkedAdd;
+
+        // Резы
+        System.out.println("----- Add Performance -----");
+        System.out.println("Iterations: " + iterations);
+        System.out.println("ArrayList add time (ns):   " + durationArrayAdd);
+        System.out.println("LinkedList add time (ns): " + durationLinkedAdd);
+
+        // TODO: Добавить запись результатов в какую-то общую структуру или таблицу
+        // UPD: Просто печать
     }
 }
