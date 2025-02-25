@@ -8,24 +8,33 @@ import java.util.Random;
 /**
  * Основной класс для сравнения производительности ArrayList и LinkedList
  *
- *  - Добавлен метод testGetPerformance
- *  - Вызываем все три метода в main
+ *  - Рефактор методов, возвращаем время выполнения + таблица
  */
 public class CollectionWork {
-    private static final int ITERATIONS = 1000;
+    private static final int ITERATIONS = 1488;
 
     public static void main(String[] args) {
-        System.out.println("Тест производительности: add, remove, get");
+        long[] addTimes = testAddPerformance(ITERATIONS);
+        long[] removeTimes = testRemovePerformance(ITERATIONS);
+        long[] getTimes = testGetPerformance(ITERATIONS);
 
-        testAddPerformance(ITERATIONS);
-        testRemovePerformance(ITERATIONS);
-        testGetPerformance(ITERATIONS);
+        System.out.println("\n=== Результаты ===");
+        System.out.printf("%-10s | %-18s | %-18s | %-18s\n",
+                "Operation", "Iterations", "ArrayList (ns)", "LinkedList (ns)");
+        System.out.println("---------------------------------------------------------------");
+        System.out.printf("%-10s | %-18d | %-18d | %-18d\n",
+                "Add", ITERATIONS, addTimes[0], addTimes[1]);
+        System.out.printf("%-10s | %-18d | %-18d | %-18d\n",
+                "Remove", ITERATIONS, removeTimes[0], removeTimes[1]);
+        System.out.printf("%-10s | %-18d | %-18d | %-18d\n",
+                "Get", ITERATIONS, getTimes[0], getTimes[1]);
     }
 
     /**
-     * Тестируем скорость добавления (add)
+     * Тестируем (add)
+     * @return массив: [время ArrayList, время LinkedList]
      */
-    private static void testAddPerformance(int iterations) {
+    private static long[] testAddPerformance(int iterations) {
         List<Integer> arrayList = new ArrayList<>();
         long startArrayAdd = System.nanoTime();
         for (int i = 0; i < iterations; i++) {
@@ -42,17 +51,14 @@ public class CollectionWork {
         long endLinkedAdd = System.nanoTime();
         long durationLinkedAdd = endLinkedAdd - startLinkedAdd;
 
-        System.out.println("----- Add Performance -----");
-        System.out.println("Iterations: " + iterations);
-        System.out.println("ArrayList add time (ns):   " + durationArrayAdd);
-        System.out.println("LinkedList add time (ns): " + durationLinkedAdd);
+        return new long[]{durationArrayAdd, durationLinkedAdd};
     }
 
     /**
-     * Тестируем (remove)
-     * Удаляем с конца (size-1)
+     * Тестируем (remove) с конца
+     * @return массив: [время ArrayList, время LinkedList]
      */
-    private static void testRemovePerformance(int iterations) {
+    private static long[] testRemovePerformance(int iterations) {
         List<Integer> arrayList = new ArrayList<>();
         for (int i = 0; i < iterations; i++) {
             arrayList.add(i);
@@ -75,20 +81,15 @@ public class CollectionWork {
         long endLinkedRemove = System.nanoTime();
         long durationLinkedRemove = endLinkedRemove - startLinkedRemove;
 
-        System.out.println("----- Remove Performance -----");
-        System.out.println("Iterations: " + iterations);
-        System.out.println("ArrayList remove time (ns):   " + durationArrayRemove);
-        System.out.println("LinkedList remove time (ns): " + durationLinkedRemove);
+        return new long[]{durationArrayRemove, durationLinkedRemove};
     }
 
     /**
-     * Тестируем (get)
-     * Будем в цикле обращаться к случайным индексам
+     * Тестируем (get) к случайным индексам
+     * @return массив: [время ArrayList, время LinkedList]
      */
-    private static void testGetPerformance(int iterations) {
+    private static long[] testGetPerformance(int iterations) {
         Random random = new Random();
-
-        // Заполняем списки
         List<Integer> arrayList = new ArrayList<>();
         List<Integer> linkedList = new LinkedList<>();
         for (int i = 0; i < iterations; i++) {
@@ -96,7 +97,6 @@ public class CollectionWork {
             linkedList.add(i);
         }
 
-        // ArrayList get
         long startArrayGet = System.nanoTime();
         for (int i = 0; i < iterations; i++) {
             int idx = random.nextInt(iterations);
@@ -105,7 +105,6 @@ public class CollectionWork {
         long endArrayGet = System.nanoTime();
         long durationArrayGet = endArrayGet - startArrayGet;
 
-        // LinkedList get
         long startLinkedGet = System.nanoTime();
         for (int i = 0; i < iterations; i++) {
             int idx = random.nextInt(iterations);
@@ -114,9 +113,6 @@ public class CollectionWork {
         long endLinkedGet = System.nanoTime();
         long durationLinkedGet = endLinkedGet - startLinkedGet;
 
-        System.out.println("----- Get Performance -----");
-        System.out.println("Iterations: " + iterations);
-        System.out.println("ArrayList get time (ns):   " + durationArrayGet);
-        System.out.println("LinkedList get time (ns): " + durationLinkedGet);
+        return new long[]{durationArrayGet, durationLinkedGet};
     }
 }
