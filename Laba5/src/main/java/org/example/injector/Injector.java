@@ -8,21 +8,24 @@ import java.lang.reflect.Field;
 import java.util.Properties;
 
 /**
- * Базовая реализация метода inject которая читает properties
- * TODO: Дополнить реальной логикой и проверками
+ * Injector
+ * UPD: Добавлены JavaDoc и логика обработки ошибок
  */
 public class Injector {
 
     private Properties properties;
 
+    /**
+     * Конструктор, загружающий настройки зависимостей из dependency.properties
+     * Если файл не найден, будет выведено предупреждение
+     */
     public Injector() {
         properties = new Properties();
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("dependency.properties")) {
             if (is != null) {
                 properties.load(is);
             } else {
-                // TODO: Обработать случай, когда файла нет
-                System.err.println("dependency.properties не найден!");
+                System.err.println("Файл dependency.properties не найден в ресурсах.");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -30,41 +33,38 @@ public class Injector {
     }
 
     /**
-     * Метод для инъекции зависимостей в поля объекта, отмеченные @AutoInjectable.
-     * @param <T> тип объекта
-     * @param obj сам объект, поля которого хотим заполнить
-     * @return тот же объект, но с заполненными полями
+     * Выполняет инъекцию зависимостей в поля объекта, которые помечены аннотацией @AutoInjectable
+     * Для определения реализации по типу поля используется файл properties
+     *
+     * @param <T> тип инжектируемого объекта
+     * @param obj экземпляр, в поля которого будут внедрены зависимости
+     * @return возвращает тот же экземпляр, с уже установленными зависимостями
      */
     public <T> T inject(T obj) {
+        if (obj == null) {
+            return null;
+        }
         Class<?> cl = obj.getClass();
         Field[] fields = cl.getDeclaredFields();
-
         for (Field field : fields) {
             if (field.isAnnotationPresent(AutoInjectable.class)) {
-                // Получаем интерфейс (или класс) поля
                 Class<?> fieldType = field.getType();
-                // Ищем в properties
                 String implName = properties.getProperty(fieldType.getName());
                 if (implName != null) {
                     try {
-                        // Грузим класс реализации
                         Class<?> implClass = Class.forName(implName);
                         Object implInstance = implClass.getDeclaredConstructor().newInstance();
-
-                        // Делаем поле доступным для записи
                         field.setAccessible(true);
                         field.set(obj, implInstance);
-
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        // Если что-то пошло не так
+                        System.err.println("Ошибка при инъекции поля " + field.getName() + ": " + e.getMessage());
                     }
                 } else {
-                    // TODO: обработать случай когда реализации нет в properties
-                    System.err.println("Для типа " + fieldType.getName() + " не найдена реализация в properties");
+                    System.err.println("Не найдена реализация для " + fieldType.getName());
                 }
             }
         }
-
         return obj;
     }
 }
