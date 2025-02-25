@@ -3,8 +3,8 @@ package org.example.impls;
 import org.example.interfaces.SomeInterface;
 
 /**
- * OtherImpl
- * UPD: Другая реализация SomeInterface
+ * Другая реализация SomeInterface
+ * Выводит B при вызове метода doSomething
  */
 public class OtherImpl implements SomeInterface {
     @Override

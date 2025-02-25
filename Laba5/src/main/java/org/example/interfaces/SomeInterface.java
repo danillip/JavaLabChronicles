@@ -2,8 +2,13 @@ package org.example.interfaces;
 
 /**
  * Интерфейс SomeInterface
- * TODO: Добавить методы, если надо будет
+ * Может иметь различные реализации
+ * TODO: Дополнить методами, если возникнут новые требования
  */
 public interface SomeInterface {
+
+    /**
+     * Выполняет некую операцию
+     */
     void doSomething();
 }

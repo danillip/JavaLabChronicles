@@ -3,8 +3,8 @@ package org.example.impls;
 import org.example.interfaces.SomeOtherInterface;
 
 /**
- * SODoer
- * UPD: Реализация SomeOtherInterface
+ * Реализация SomeOtherInterface
+ * Выводит C при вызове метода doSomeOther
  */
 public class SODoer implements SomeOtherInterface {
     @Override

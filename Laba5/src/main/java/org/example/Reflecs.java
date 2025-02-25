@@ -4,8 +4,9 @@ import org.example.beans.SomeBean;
 import org.example.injector.Injector;
 
 /**
- * Reflecs main(), чтобы запустить и проверить
- * TODO: Запустить, убедиться, что выводит A + C
+ * Точка входа для демонстрации работы инъекции
+ * TODO: Запустить и убедиться, что выводит A и C по умолчанию
+ * Если в properties изменить реализацию SomeInterface, будет B и C
  */
 public class Reflecs {
     public static void main(String[] args) {
