@@ -1,5 +1,13 @@
 package org.example;
 
+/**
+ * Класс Division хранит данные о подразделении:
+ * <ul>
+ *     <li>id – уникальный идентификатор, генерируется автоматически</li>
+ *     <li>name – название подразделения</li>
+ * </ul>
+ */
+
 public class Division {
     private static long divisionIdCounter = 1;
 

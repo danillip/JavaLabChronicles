@@ -2,6 +2,18 @@ package org.example;
 
 import java.time.LocalDate;
 
+/**
+ * Класс Person хранит данные о человеке:
+ * <ul>
+ *     <li>ID – идентификатор</li>
+ *     <li>name – имя</li>
+ *     <li>gender – пол</li>
+ *     <li>birthDate – дата рождения</li>
+ *     <li>division – подразделение</li>
+ *     <li>salary – зарплата</li>
+ * </ul>
+ */
+
 public class Person {
     private long id;
     private String name;

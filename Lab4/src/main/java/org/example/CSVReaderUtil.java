@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
- * Утилитный класс для чтения данных о людях из CSV
+ * Утилитный класс для чтения CSV (foreign_names.csv) и формирования списка Person
  */
 public class CSVReaderUtil {
 

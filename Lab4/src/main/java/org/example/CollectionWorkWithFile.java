@@ -3,7 +3,7 @@ package org.example;
 import java.util.List;
 
 /**
- * Запуск приложения
+ * Главный класс с методом main, который читает CSV и выводит результат
  */
 public class CollectionWorkWithFile {
 
