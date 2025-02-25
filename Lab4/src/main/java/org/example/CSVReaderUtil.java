@@ -12,24 +12,47 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
- * Утилитный класс для чтения CSV (foreign_names.csv) и формирования списка Person
+ * Утилитный класс для чтения данных о людях из CSV-файла и формирования списка {@link Person}
+ * <p>
+ * По умолчанию файл <b>foreign_names.csv</b> должен находиться в папке ресурсов (resources)
+ * </p>
+ * Схема CSV:
+ * <pre>
+ *     id;name;gender;BirtDate;Division;Salary
+ * </pre>
+ *
+ * @author
+ *     danillip
+ * @version
+ *     1.0
  */
 public class CSVReaderUtil {
 
+    /**
+     * Разделитель (по условию ';').
+     */
     private static final char DEFAULT_SEPARATOR = ';';
+
+    /**
+     * Формат даты в CSV-файле (dd.MM.yyyy).
+     */
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    // Храним уже созданные подразделения в мапе чтобы не плодить кучу одинаковых Division
+    /**
+     * Кэш уже созданных подразделений, чтобы не создавать дубликаты.
+     */
     private static final Map<String, Division> divisionMap = new HashMap<>();
 
     /**
-     * Считывает CSV файл из ресурсов и возвращает список Person
+     * Считывает CSV-файл из ресурсов и возвращает список {@link Person}.
      * Формат CSV:
-     * id;name;gender;BirtDate;Division;Salary
+     * <pre>
+     *     id;name;gender;BirtDate;Division;Salary
+     * </pre>
      *
-     * @param csvFilePath путь к CSV файлу (внутри ресурсов)
-     * @return список объектов Person
-     * @throws Exception при ошибке чтения файла
+     * @param csvFilePath путь к CSV-файлу (относительно папки ресурсов)
+     * @return список объектов {@link Person}
+     * @throws Exception при ошибке чтения файла (например, отсутствует или неверные данные)
      */
     public static List<Person> readPeopleFromCSV(String csvFilePath) throws Exception {
         List<Person> people = new ArrayList<>();
