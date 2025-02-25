@@ -1,4 +1,4 @@
-package com.example;
+package org.example;
 
 /**
  * Вспомогательный класс для примера
@@ -10,7 +10,7 @@ package com.example;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class ReflectionUtils {
+public class ReflectionUtils { /**
 
     public static long[] invokePrivateAddPerformance(int iterations) {
         return invokeMethod("testAddPerformance", iterations);
@@ -33,5 +33,5 @@ public class ReflectionUtils {
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 }
