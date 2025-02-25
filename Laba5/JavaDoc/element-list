@@ -1,0 +1,6 @@
+org.example
+org.example.annotations
+org.example.beans
+org.example.impls
+org.example.injector
+org.example.interfaces
