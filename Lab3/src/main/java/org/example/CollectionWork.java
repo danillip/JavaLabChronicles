@@ -17,7 +17,7 @@ import java.util.Random;
  * <p>Результаты выводятся в консоль в виде простой таблицы</p>
  *
  * @author danillip
- * @version 1.0
+ * @version 1.1
  */
 public class CollectionWork {
 
